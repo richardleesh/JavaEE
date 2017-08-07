@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/commonTemplate.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<p:panel>
+					<f:facet name="header">Person Management</f:facet>
+					<p:commandButton value="populate Persons"
+						action="#{personBean.populatePerson}" update=":personTable" />
+					<p:spacer width="15" />
+					<p:commandButton value="list Persons"
+						action="#{personBean.loadAllPersons}" update=":personTable" />
+					<p:spacer width="15" />
+					<p:commandButton value="create Person" action="#{personBean.redirectToCreatePerson}">						
+					</p:commandButton>
+				</p:panel>
+			</h:form>
+
+			<p:dataTable id="personTable" value="#{personBean.allPersons}"
+				var="person">
+				<f:facet name="header">Person List</f:facet>
+				<p:column headerText="ID">
+						#{person.id}
+					</p:column>
+				<p:column headerText="First Name">
+						#{person.firstName}
+					</p:column>
+				<p:column headerText="Last Name">
+						#{person.lastName}
+					</p:column>
+				<p:column headerText="DOB">
+					<h:outputText value="#{person.born}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Created">
+					<h:outputText value="#{person.creationDate}">
+						<f:convertDateTime pattern="dd/MM/yyyy mm:hh:ss" />
+					</h:outputText>
+
+				</p:column>
+				<p:column headerText="Action">
+					<p:commandButton value="edit" action="editPerson">
+						<f:setPropertyActionListener value="#{person}"
+							target="#{personBean.currentPerson}" />
+					</p:commandButton>
+					<p:commandButton value="delete" action="#{personBean.deletePerson}"
+						update=":personTable">
+
+						<f:setPropertyActionListener value="#{person}"
+							target="#{personBean.currentPerson}" />
+
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

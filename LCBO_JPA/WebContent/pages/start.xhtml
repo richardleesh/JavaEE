@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/commonTemplate.xhtml">
+
+		<ui:define name="content">
+			<p:panel>
+				<f:facet name="header">Welcome to Yong Fu Liu's Assignment 2</f:facet>
+				<div>Welcome to JSF and JPA's LCBO , there total 
+				<mark>${productBean.allProducts.size()}</mark>  products available in the store
+				</div>
+
+			</p:panel>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

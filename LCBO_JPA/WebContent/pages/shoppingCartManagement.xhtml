@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/commonTemplate.xhtml">
+
+		<ui:define name="content">
+
+			<h:form>
+				<p:dataTable var="item" value="#{orderBean.currentorderItems}"
+					rows="8" paginator="true" id="orderItems"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="8,15,25" editMode="cell" editable="true">
+					<f:facet name="header"> Items in shopping cart</f:facet>
+					<p:column headerText="image">
+						<p:graphicImage value="images/#{item.product.imageFileName}"
+							height="60" />
+					</p:column>
+					<p:column headerText="id">
+					#{item.product.id}
+				</p:column>
+					<p:column headerText="name">
+					#{item.product.name}
+					</p:column>
+					<p:column headerText="weight">
+					#{item.product.weight}
+				</p:column>
+					<p:column headerText="price">
+					#{item.price}
+				</p:column>
+
+
+					<p:column headerText="action">
+					
+						<p:spinner id="quantity" value="#{item.quantity}" size="1">
+						</p:spinner>
+
+						<p:commandButton value="update"
+							action="#{orderBean.updateItem(item)}">
+
+						</p:commandButton>
+						
+						<p:commandButton value="delete"
+							action="#{orderBean.deleteOrderItem(item)}" update="orderItems">
+
+						</p:commandButton>
+						
+
+					</p:column>
+
+
+					<p:columnGroup type="footer">
+						<p:row>
+							<p:column colspan="4" style="text-align:right"
+								footerText="Totals:" />
+							<p:column footerText="$#{orderBean.currentTotal}"></p:column>
+						</p:row>
+					</p:columnGroup>
+
+					<f:facet name="footer">
+						<p:commandButton value="back to shop"
+							action="shopManagement" >
+							
+						</p:commandButton>
+						<p:commandButton value="checkout"
+							action="#{orderBean.createOrder}" update="orderItems">
+							<f:setPropertyActionListener
+								value="${customerBean.currentCustomer}"
+								target="#{orderBean.currentCustomer}" />
+						</p:commandButton>
+					</f:facet>
+
+
+				</p:dataTable>
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

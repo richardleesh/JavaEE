@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/commonTemplate.xhtml">
+
+		<ui:define name="content">
+
+			<h:form id="profile">
+				<p:panelGrid>
+
+					<f:facet name="header">
+						<p:row>
+							<p:column colspan="4"> Edit Profile</p:column>
+						</p:row>
+					</f:facet>
+
+
+					<p:row>
+						<!-- customer -->
+						<p:column>
+							<p:panelGrid columns="2">
+								<h:outputText value="ID: " />
+								<h:outputText value="#{customerBean.currentCustomer.id}" />
+
+								<h:outputText value="User Name: " />
+								<h:outputText value="#{customerBean.currentCustomer.userName}" />
+
+								<h:outputText value="First Name: " />
+								<h:inputText value="#{customerBean.currentCustomer.firstName}" />
+
+								<h:outputText value="Last Name: " />
+								<h:inputText value="#{customerBean.currentCustomer.lastName}" />
+
+								<h:outputText value="DOB: " />
+								<h:inputText value="#{customerBean.currentCustomer.born}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:inputText>
+							</p:panelGrid>
+						</p:column>
+
+
+						<!-- customer address -->
+						<p:column>
+							<p:panelGrid columns="2">
+								<h:outputText value="Address ID: " />
+								<h:outputText value="#{customerBean.currentCustomer.address.id}" />
+
+								<h:outputText value="Street: " />
+								<h:outputText
+									value="#{customerBean.currentCustomer.address.street}" />
+
+								<h:outputText value="Postalcode: " />
+								<h:inputText
+									value="#{customerBean.currentCustomer.address.postalCode}" />
+
+								<h:outputText value="City: " />
+								<h:inputText
+									value="#{customerBean.currentCustomer.address.city}" />
+
+								<h:outputText value="Country: " />
+								<h:inputText
+									value="#{customerBean.currentCustomer.address.country}" />
+
+							</p:panelGrid>
+						</p:column>
+
+						<!-- customer profile -->
+						<p:column>
+							<p:panelGrid columns="2">
+								<h:outputText value="Profile ID: " />
+								<h:outputText
+									value="#{customerBean.currentCustomer.customerProfile.id}" />
+
+								<h:outputText value="User Name: " />
+								<h:outputText value="#{customerBean.currentCustomer.userName}" />
+
+								<h:outputText value="Email: " />
+								<h:inputText
+									value="#{customerBean.currentCustomer.customerProfile.email}" />
+
+								<h:outputText value="Layout: " />
+								<h:inputText
+									value="#{customerBean.currentCustomer.customerProfile.layout}" />
+
+								<h:outputText value="MaxmumTableItems: " />
+								<h:inputText
+									value="#{customerBean.currentCustomer.customerProfile.maxTableItems}">
+								</h:inputText>
+							</p:panelGrid>
+						</p:column>
+					</p:row>
+
+					<f:facet name="footer">
+						<p:row>
+							<p:column>
+							</p:column>
+							<p:column>
+								<p:commandButton value="update profile"
+									action="#{customerBean.updateProfile}" update="profile">
+								</p:commandButton>
+							</p:column>
+							<p:column>
+							</p:column>
+						</p:row>
+					</f:facet>
+				</p:panelGrid>
+			</h:form>
+			
+			
+			
+			<h:form id="orderList">
+				<p:dataTable var="order"
+					value="#{customerBean.currentCustomer.orderList}" rows="8"
+					paginator="true" id="orders"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="#{customerBean.currentCustomer.customerProfile.maxTableItems},15,25"
+					editMode="cell" editable="true">
+					<f:facet name="header">Order List</f:facet>
+
+					<p:column headerText="order id">
+						#{order.id}
+					</p:column>
+					<p:column headerText="ordr date">
+						#{order.orderDate}
+					</p:column>
+					<p:column headerText="order items">
+						${order.orderItems.size()}
+					</p:column>
+					<p:column headerText="order sum">
+						${order.getSum()}
+					</p:column>
+
+					<p:column headerText="action">
+						<p:commandButton value="select"
+							action="#{customerBean.updateSelectedOrder(order)}"  update="orderList">
+
+						</p:commandButton>
+
+						<p:commandButton value="delete"
+							action="#{customerBean.deleteOrder(order)}" update="orderList">
+						</p:commandButton>
+					</p:column>		
+					
+				</p:dataTable>			
+				
+				
+				<p:dataTable var="orderItem"
+					value="#{customerBean.selectedOrder.orderItems}" rows="8"
+					paginator="true" id="orderdetail"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+					rowsPerPageTemplate="#{customerBean.currentCustomer.customerProfile.maxTableItems},15,25"
+					editMode="cell" editable="true">
+					<f:facet name="header">Oder #{orderBean.selectedOrder.id} Detail</f:facet>
+
+					<p:column headerText="Item id">
+						${orderItem.id}
+					</p:column>
+					
+					<p:column headerText="Product Name">
+						${orderItem.product.name}
+					</p:column>
+					
+					<p:column headerText="Quatity">
+						${orderItem.quantity}
+					</p:column>
+					
+					<p:column headerText="Quatity">
+						${orderItem.quantity}
+					</p:column>
+					
+					<p:column headerText="Product Name">
+						${orderItem.product.price}
+					</p:column>	
+				
+				</p:dataTable>
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

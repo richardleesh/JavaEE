@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<f:metadata>
+    <f:viewAction action="#{personBean.initCurrentPerson}" />
+</f:metadata>
+<h:body>
+
+	<ui:composition template="/template/commonTemplate.xhtml">
+
+		<ui:define name="content">
+			<h:form>
+				<p:panel>
+					<f:facet name="header">Create Person</f:facet>					
+
+					<p:spacer width="15" />
+
+				</p:panel>
+				
+				<p:panelGrid columns="2">
+					First Name <p:inputText value="#{personBean.currentPerson.firstName}" required="true" requiredMessage="First Name is required" />
+				
+					Last Name <p:inputText value="#{personBean.currentPerson.lastName}" required="true" requiredMessage="Last Name is required" />
+				
+					DOB	 <p:inputText value="#{personBean.currentPerson.born}"  placeholder="dd/mm/yyyy"  required="true" requiredMessage="DOB is required" >
+							<f:convertDateTime pattern="dd/mm/yyyy" />
+					</p:inputText>
+				
+					Street <p:inputText value="#{personBean.currentPerson.address.street}"  />
+				
+					Postal Code <p:inputText value="#{personBean.currentPerson.address.postalCode}"  />
+				
+					City <p:inputText value="#{personBean.currentPerson.address.city}"  />
+				
+					Country <p:inputText value="#{personBean.currentPerson.address.country}"  />
+					
+					
+					<f:facet name="footer">
+						<p:commandButton value="Back" action="personManagement" immediate="true"/>
+						<p:spacer width="10"/>
+						<p:commandButton value="Create" action="#{personBean.createPerson}" />
+					
+					</f:facet>
+				</p:panelGrid>
+				
+				
+			</h:form>
+
+
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>

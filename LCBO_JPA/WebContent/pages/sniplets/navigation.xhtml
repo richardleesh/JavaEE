@@ -1,0 +1,47 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:component>
+	<h:form>
+		<p:panelGrid columns="1">
+		<p:menu toggleable="true" >		
+			<p:menuitem value="Start" action="start" />
+			
+			<p:menuitem value="Shop" action="#{productBean.shopAction}" />
+			<p:menuitem value="Shopping cart" action="shoppingCartManagement" />
+			<p:menuitem value="edit profile" action="#{customerBean.prepareEditProfile}" />		
+			
+			
+			
+		</p:menu>
+			<p:panel>
+				<f:facet name="header">Theme Selector</f:facet>
+				
+				<p:themeSwitcher id="basic" value="#{customerBean.currentCustomer.customerProfile.layout}" effect="fade" var="t" style="width:80%">
+		            <f:selectItem itemLabel="Choose Theme" itemValue="" />
+		        	<f:selectItems value="#{themeSwitcherView.themes}" />      
+		            <p:column>
+		                #{t.name}
+					</p:column> 
+					<p:ajax listener="#{customerBean.currentCustomer.customerProfile.layout}" />          
+		        </p:themeSwitcher>
+	        </p:panel>
+	       
+		</p:panelGrid>
+	</h:form>
+</ui:component>
+</html>
+
+
+<!-- <p:submenu label="Person"> -->
+				<!-- <p:menuitem value="Person Management" action="personManagement" /> -->
+			<!-- </p:submenu> -->
+			<!-- <p:submenu label="Customer"> -->
+				<!-- <p:menuitem value="Customer Management" action="customerManagement" /> -->
+			<!-- </p:submenu>  -->

@@ -1,0 +1,46 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+          "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title><ui:insert name="title">Default title</ui:insert></title>
+	<script
+		src="http://maps.google.com/maps/api/js?key=AIzaSyDdrWymgfRJ8iZAAHF_ZxYv7DVNPlMDOXU"
+		type="text/javascript"></script>
+	<h:outputStylesheet library="css" name="style.css" />
+</h:head>
+
+<h:body>
+	<table id="mainTable" border="0" style="vertical-align: top;">
+		<tr>
+			<td colspan="2"><ui:insert name="header">
+					<ui:include src="/pages/sniplets/header.xhtml"></ui:include>
+				</ui:insert></td>
+		</tr>
+		<tr valign="top">
+			<td width="100px" height="400px"><ui:insert name="navigation">
+					<ui:include src="/pages/sniplets/navigation.xhtml"></ui:include>
+				</ui:insert></td>
+			<td width="100%"><p:messages id="messages" showDetail="true"
+					autoUpdate="true" closable="true" /> <p:growl id="growl"
+					showSummary="true" showDetail="true" autoUpdate="true" /> <ui:insert
+					name="content">
+    	Content area.
+  </ui:insert></td>
+		</tr>
+		<tr>
+			<td colspan="2"><ui:insert name="footer">
+					<ui:include src="/pages/sniplets/footer.xhtml"></ui:include>
+				</ui:insert></td>
+		</tr>
+
+	</table>
+
+	<ui:debug />
+
+</h:body>
+
+</html>

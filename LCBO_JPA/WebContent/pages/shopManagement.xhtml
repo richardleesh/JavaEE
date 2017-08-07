@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:body>
+
+	<ui:composition template="/template/commonTemplate.xhtml">
+
+		<ui:define name="content">
+
+
+			<p:dataTable var="product" value="#{productBean.allProducts}"
+				rows="8" paginator="true" id="products"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}"
+				rowsPerPageTemplate="8,15,25">
+				<f:facet name="header"> List of All Products</f:facet>
+				<p:column headerText="image">
+					<p:graphicImage value="images/#{product.imageFileName}" height="60" />
+				</p:column>
+				<p:column headerText="id">
+					#{product.id}
+				</p:column>
+				<p:column headerText="name">
+					#{product.name}
+				</p:column>
+				<p:column headerText="weight">
+					#{product.weight}
+				</p:column>
+				<p:column headerText="price">
+					#{product.price}
+				</p:column>
+				<p:column headerText="action">
+					<p:commandButton value="add to shoping cart" action="#{orderBean.addToShoppingCart}">
+						<f:setPropertyActionListener value="#{product}"
+							target="#{orderBean.currentProduct}" />
+					</p:commandButton>
+				</p:column>
+
+			</p:dataTable>
+		</ui:define>
+	</ui:composition>
+</h:body>
+
+</html>
